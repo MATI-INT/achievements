@@ -7,7 +7,6 @@ gem 'devise', '4.0.0.rc2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 
-
 group :development do
   gem 'sqlite3'
 end
@@ -30,19 +29,15 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 
-# Use jquery as the JavaScript library
+# jQuery and stuff
 gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5.x'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'jquery-turbolinks'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+# Turbolinks
+gem 'turbolinks', '~> 5.x'
+
+# Styles
+gem 'bootstrap', '~> 4.0.0.alpha3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
