@@ -1,0 +1,23 @@
+<h1>New achievement</h1>
+
+<%= form_for @achievement do |f| %>
+  <%= render 'shared/errors', object: @achievement %>
+
+  <fieldset class="form-group">
+    <%= f.label :title, class: 'control-label' %>
+    <%= f.text_field :title, class: "form-control" %>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <%= f.label :image, class: 'control-label' %>
+    <%= f.file_field :image, class: "form-control" %>
+    <%= f.hidden_field :retained_image %>
+  </fieldset>
+
+  <fieldset class="form-group">
+    <%= f.label :description, class: 'control-label' %>
+    <%= f.text_area :description, class: "form-control" %>
+  </fieldset>
+
+  <%= f.submit 'Create', class: 'btn btn-primary' %>
+<% end %>

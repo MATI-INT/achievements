@@ -1,11 +1,14 @@
 source 'https://rubygems.org'
 
+# Core
+gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+gem 'puma'
+
 # Authentication
 gem 'devise', '4.0.0.rc2'
 
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+# Files
+gem 'dragonfly'
 
 group :development do
   gem 'sqlite3'
@@ -17,17 +20,10 @@ group :production do
   gem 'pg'
 end
 
-# Use Puma as the app server
-gem 'puma'
-# Use SCSS for stylesheets
+# Assets
 gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 
 # jQuery and stuff
 gem 'jquery-rails'

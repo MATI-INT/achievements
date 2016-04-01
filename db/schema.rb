@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330173210) do
+ActiveRecord::Schema.define(version: 20160401130035) do
+
+  create_table "achievements", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image_uid"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_achievements", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "achievements_id"
+  end
+
+  add_index "user_achievements", ["achievements_id"], name: "index_user_achievements_on_achievements_id"
+  add_index "user_achievements", ["user_id"], name: "index_user_achievements_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
