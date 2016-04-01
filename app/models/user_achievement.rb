@@ -1,4 +1,4 @@
 class UserAchievement < ApplicationRecord
   belongs_to :user
-  belongs_to :achievements
+  belongs_to :achievement
 end

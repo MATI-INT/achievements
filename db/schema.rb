@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20160401130035) do
 
   create_table "user_achievements", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "achievements_id"
+    t.integer "achievement_id"
   end
 
-  add_index "user_achievements", ["achievements_id"], name: "index_user_achievements_on_achievements_id"
+  add_index "user_achievements", ["achievement_id"], name: "index_user_achievements_on_achievement_id"
   add_index "user_achievements", ["user_id"], name: "index_user_achievements_on_user_id"
 
   create_table "users", force: :cascade do |t|
