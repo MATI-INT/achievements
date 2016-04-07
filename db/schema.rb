@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160401130035) do
+ActiveRecord::Schema.define(version: 20160407174656) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +20,24 @@ ActiveRecord::Schema.define(version: 20160401130035) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "post_achievements", force: :cascade do |t|
+    t.integer "achievement_id"
+    t.integer "post_id"
+  end
+
+  add_index "post_achievements", ["achievement_id"], name: "index_post_achievements_on_achievement_id"
+  add_index "post_achievements", ["post_id"], name: "index_post_achievements_on_post_id"
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title"
+    t.text     "body"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "user_achievements", force: :cascade do |t|
     t.integer "user_id"

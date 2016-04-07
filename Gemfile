@@ -10,6 +10,9 @@ gem 'devise', '4.0.0.rc2'
 # Files
 gem 'dragonfly'
 
+# Pagination
+gem 'will_paginate'
+
 group :development do
   gem 'sqlite3'
 end
@@ -34,15 +37,11 @@ gem 'turbolinks', '~> 5.x'
 
 # Styles
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-end
-
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.0'
+  gem 'faker'
+  gem 'pry-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

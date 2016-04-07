@@ -11,4 +11,7 @@ class Achievement < ApplicationRecord
 
   has_many :user_achievements
   has_many :users, through: :user_achievements
+
+  has_many :post_achievements
+  has_many :posts, through: :post_achievements
 end
