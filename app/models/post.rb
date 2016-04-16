@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
+  belongs_to :category, optional: true # TODO: remove it
   has_many :post_achievements
   has_many :achievements, through: :post_achievements
 

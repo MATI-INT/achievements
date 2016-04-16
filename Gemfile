@@ -11,7 +11,7 @@ gem 'devise', '4.0.0.rc2'
 gem 'dragonfly'
 
 # Pagination
-gem 'will_paginate'
+gem 'kaminari', github: 'amatsuda/kaminari', branch: 'master'
 
 group :development do
   gem 'sqlite3'
@@ -37,7 +37,6 @@ gem 'turbolinks', '~> 5.x'
 
 # Styles
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'faker'

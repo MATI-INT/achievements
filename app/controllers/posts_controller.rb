@@ -4,17 +4,29 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      flash[:success] = 'Post created!'
-      redirect_to posts_path
+    p = post_params
+    @category = Category.find_by(id: p.delete('category'))
+    @post = current_user.posts.build(p)
+    if @category
+      @post.category = @category
+      if @post.save
+        flash[:success] = 'Post created!'
+        redirect_to posts_path
+      else
+        render 'new'
+      end
     else
+      flash.now[:warning] = 'Category does not exist...'
       render 'new'
     end
   end
 
   def index
-    @posts = Post.order('created_at DESC').paginate(per_page: 25, page: params[:page])
+    @posts = if params[:category]
+      Post.where(category: params[:category])
+    else
+      Post.all
+    end.order('created_at DESC').page(params[:page])
   end
 
   def show
@@ -25,6 +37,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :category)
   end
 end

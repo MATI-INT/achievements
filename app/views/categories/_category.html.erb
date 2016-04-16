@@ -1,0 +1,7 @@
+<div class="card">
+  <div class="card-block">
+    <h4 class="card-title"><%= category.title %></h4>
+    <p class="card-text"><%= category.description %></p>
+    <%= link_to 'View', posts_path(category: category), class: 'btn btn-primary' %>
+  </div>
+</div>

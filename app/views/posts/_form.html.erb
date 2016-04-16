@@ -11,5 +11,8 @@
     <%= f.text_area :body, class: "form-control", required: true %>
   </fieldset>
 
+  <%= f.label :category %>
+  <%= f.collection_select :category, Category.all, :id, :title %>
+
   <%= f.submit 'Create!', class: 'btn btn-primary' %>
 <% end %>
