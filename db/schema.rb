@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416162558) do
+ActiveRecord::Schema.define(version: 20160419163817) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160416162558) do
     t.string   "image_uid"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -48,14 +49,6 @@ ActiveRecord::Schema.define(version: 20160416162558) do
   add_index "posts", ["category_id"], name: "index_posts_on_category_id"
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
-  create_table "user_achievements", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "achievement_id"
-  end
-
-  add_index "user_achievements", ["achievement_id"], name: "index_user_achievements_on_achievement_id"
-  add_index "user_achievements", ["user_id"], name: "index_user_achievements_on_user_id"
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "name"
@@ -74,5 +67,16 @@ ActiveRecord::Schema.define(version: 20160416162558) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "achievement_id"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "votes", ["achievement_id", "user_id"], name: "index_votes_on_achievement_id_and_user_id", unique: true
+  add_index "votes", ["achievement_id"], name: "index_votes_on_achievement_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

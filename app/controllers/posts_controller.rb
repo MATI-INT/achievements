@@ -30,8 +30,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find_by(id: params[:id])
-    @achievements = Achievement.all
+    @post = Post.includes(:achievements).find_by(id: params[:id])
+    @achievements = current_user.achievements
   end
 
   private

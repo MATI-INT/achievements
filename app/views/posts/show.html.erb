@@ -1,23 +1,47 @@
 <h1><%= @post.title %></h1>
 
 <div class="post">
-  <p class="text-muted"><%= @post.timestamp %></p>
+  <div class="card">
+    <div class="card-block">
+      <p class="text-muted"><%= @post.timestamp %></p>
 
-  <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %><em><%= @post.user.name %></em></p>
+      <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %><em><%= @post.user.name %></em></p>
+    </div>
 
-  <div class="well well-lg">
-    <%= @post.body %>
+    <div class="card-block">
+      <%= @post.body %>
+    </div>
   </div>
 </div>
 
-<%= @post.achievements.inspect %>
+<% @post.achievements.each do |ach| %>
+  <%= image_tag ach.image.thumb('100x100#').url %>
+  <%= ach.title %>
+  <span class="label label-info">Votes: <%= ach.votes.count %></span>
+
+  <% if current_user.voted_for?(ach) %>
+    <span class="label label-danger">You have already voted!</span>
+  <% elsif ach.user == current_user %>
+    <span class="label label-info">You've assigned this!</span>
+  <% else %>
+    <%= form_tag votes_path do %>
+      <%= hidden_field_tag 'achievement_id', ach.id %>
+      <%= submit_tag "Vote!", class: 'btn btn-info btn-sm' %>
+    <% end %>
+  <% end %>
+
+  <br>
+
+  <p class="text-muted">Assigned by <%= link_to ach.user.name, user_path(ach.user) %></p>
+
+<% end %>
 
 <%= form_tag post_achievements_path, method: :post do %>
   <%= hidden_field_tag 'post_id', @post.id %>
   <fieldset class="form-group">
     <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
     <%= select_tag "achievement_id",
-                   options_from_collection_for_select(@achievements, 'id', 'title'),
+                   options_from_collection_for_select(@achievements - @post.achievements, 'id', 'title'),
                    class: "form-control" %>
   </fieldset>
 

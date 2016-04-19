@@ -4,7 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :user_achievements
-  has_many :achievements, through: :user_achievements
+  has_many :achievements
   has_many :posts
+  has_many :votes
+
+  def voted_for?(ach)
+    votes.any? {|v| v.achievement == ach }
+  end
 end

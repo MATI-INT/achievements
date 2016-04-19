@@ -9,9 +9,10 @@ class Achievement < ApplicationRecord
   validates_property :format, of: :image, in: ['jpeg', 'png', 'gif']
   #validates_property :width, of: :image, in: (0..400)
 
-  has_many :user_achievements
-  has_many :users, through: :user_achievements
+  belongs_to :user, optional: true # TODO: remove it
 
   has_many :post_achievements
   has_many :posts, through: :post_achievements
+
+  has_many :votes
 end

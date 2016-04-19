@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require bootstrap/tab
+//= require bootstrap/util
 //= require turbolinks
