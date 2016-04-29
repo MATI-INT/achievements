@@ -1,0 +1,9 @@
+<div class="card">
+  <%= gravatar_for comment.user, size: 50 %>
+  <strong><%= link_to comment.user.name, user_path(comment.user) %></strong>
+  <small class="text-muted"><em><%= comment.created_at %></em></small>
+
+  <div class="card-block">
+    <%= comment.body %>
+  </div>
+</div>

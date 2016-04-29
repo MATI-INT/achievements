@@ -3,3 +3,8 @@
     margin-right: 1em;
   }
 }
+
+#comments-list {
+  max-height: 500px;
+  overflow-y: auto;
+}

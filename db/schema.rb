@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419163817) do
+ActiveRecord::Schema.define(version: 20160429173735) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title"
@@ -29,13 +29,23 @@ ActiveRecord::Schema.define(version: 20160419163817) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id", "post_id"], name: "index_comments_on_user_id_and_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "post_achievements", force: :cascade do |t|
     t.integer "achievement_id"
     t.integer "post_id"
+    t.index ["achievement_id"], name: "index_post_achievements_on_achievement_id"
+    t.index ["post_id"], name: "index_post_achievements_on_post_id"
   end
-
-  add_index "post_achievements", ["achievement_id"], name: "index_post_achievements_on_achievement_id"
-  add_index "post_achievements", ["post_id"], name: "index_post_achievements_on_post_id"
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -44,10 +54,9 @@ ActiveRecord::Schema.define(version: 20160419163817) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
+    t.index ["category_id"], name: "index_posts_on_category_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
-
-  add_index "posts", ["category_id"], name: "index_posts_on_category_id"
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -63,20 +72,18 @@ ActiveRecord::Schema.define(version: 20160419163817) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "votes", force: :cascade do |t|
     t.integer  "achievement_id"
     t.integer  "user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["achievement_id", "user_id"], name: "index_votes_on_achievement_id_and_user_id", unique: true
+    t.index ["achievement_id"], name: "index_votes_on_achievement_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
-
-  add_index "votes", ["achievement_id", "user_id"], name: "index_votes_on_achievement_id_and_user_id", unique: true
-  add_index "votes", ["achievement_id"], name: "index_votes_on_achievement_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

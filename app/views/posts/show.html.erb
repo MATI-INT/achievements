@@ -5,7 +5,8 @@
     <div class="card-block">
       <p class="text-muted"><%= @post.timestamp %></p>
 
-      <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %><em><%= @post.user.name %></em></p>
+      <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %>
+        <em><%= link_to @post.user.name, user_path(@post.user) %></em></p>
     </div>
 
     <div class="card-block">
@@ -36,14 +37,33 @@
 
 <% end %>
 
-<%= form_tag post_achievements_path, method: :post do %>
+<% unless @post.user == current_user %>
+  <%= form_tag post_achievements_path, method: :post do %>
+    <%= hidden_field_tag 'post_id', @post.id %>
+    <fieldset class="form-group">
+      <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
+      <%= select_tag "achievement_id",
+                     options_from_collection_for_select(current_user.achievements - @post.achievements, 'id', 'title'),
+                     class: "form-control" %>
+    </fieldset>
+
+    <%= submit_tag 'Assign!', class: 'btn btn-primary btn-xs' %>
+  <% end %>
+<% end %>
+
+<h3>Comments</h3>
+
+<%= form_for @comment, remote: true do |f| %>
   <%= hidden_field_tag 'post_id', @post.id %>
+
   <fieldset class="form-group">
-    <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
-    <%= select_tag "achievement_id",
-                   options_from_collection_for_select(@achievements - @post.achievements, 'id', 'title'),
-                   class: "form-control" %>
+    <%= f.label :body %>
+    <%= f.text_area :body, class: 'form-control' %>
   </fieldset>
 
-  <%= submit_tag 'Assign!', class: 'btn btn-primary btn-xs' %>
+  <%= f.submit 'Comment!', class: 'btn btn-primary' %>
 <% end %>
+
+<div id="comments-list">
+  <%= render @post.comments.order('created_at DESC') %>
+</div>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:new, :create, :index]
   resources :votes, only: [:create]
   resources :users, only: [:show]
+  resources :comments, only: [:create]
 
   root to: 'categories#index'
 end

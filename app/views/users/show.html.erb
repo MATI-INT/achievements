@@ -32,7 +32,11 @@
       <div class="tab-pane active fade" id="received" role="tabpanel">
         <h3>Received achievements</h3>
 
-        <% @user.posts.map {|post| render post.achievements } %>
+        <% @user.posts.each do |post| %>
+          <% post.achievements.each do |ach| %>
+            <%= render(ach) if ach.votes.count > 5 %>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>

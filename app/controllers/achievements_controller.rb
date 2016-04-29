@@ -8,7 +8,7 @@ class AchievementsController < ApplicationController
   end
 
   def create
-    @achievement = Achievement.new(achievements_params)
+    @achievement = current_user.achievements.build(achievements_params)
     if @achievement.save
       flash[:success] = 'Created!'
       redirect_to root_path
@@ -20,6 +20,7 @@ class AchievementsController < ApplicationController
   private
 
   def achievements_params
-    params.require(:achievement).permit(:title, :image, :description, :retained_image)
+    params.require(:achievement).permit(:title, :image, :description,
+                                        :retained_image)
   end
 end

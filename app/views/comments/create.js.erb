@@ -1,0 +1,6 @@
+<% if @comment.new_record? %>
+alert('Could not save your comment...');
+<% else %>
+$('#comments-list').prepend('<%= j render @comment %>');
+document.getElementById('new_comment').reset();
+<% end %>
