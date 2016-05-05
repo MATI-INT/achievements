@@ -1,15 +1,15 @@
 <%= form_for @category do |f| %>
   <%= render 'shared/errors', object: @category %>
 
-    <fieldset class="form-group">
-  <%= f.label :title, class: 'control-label' %>
-  <%= f.text_field :title, class: "form-control" %>
-    </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :title, class: 'control-label' %>
+    <%= f.text_field :title, class: "form-control" %>
+  </fieldset>
 
-    <fieldset class="form-group">
-  <%= f.label :description, class: 'control-label' %>
-  <%= f.text_area :description, class: "form-control" %>
-    </fieldset>
+  <fieldset class="form-group">
+    <%= f.label :description, class: 'control-label' %>
+    <%= f.text_area :description, class: "form-control" %>
+  </fieldset>
 
-  <%= f.submit, class: 'btn btn-primary' %>
+  <%= f.submit 'Submit', class: 'btn btn-primary' %>
 <% end %>
