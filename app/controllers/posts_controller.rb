@@ -32,6 +32,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.includes(:achievements, :comments).find_by(id: params[:id])
     @comment = Comment.new
+    @ach_to_assign = (Achievement.where(community: true) + current_user.achievements - @post.achievements).uniq
   end
 
   private

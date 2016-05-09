@@ -1,6 +1,6 @@
 class AchievementsController < ApplicationController
   def index
-    @achievements = Achievement.order('created_at DESC')
+    @achievements = Achievement.community.order('created_at DESC')
   end
 
   def new
@@ -21,6 +21,6 @@ class AchievementsController < ApplicationController
 
   def achievements_params
     params.require(:achievement).permit(:title, :image, :description,
-                                        :retained_image)
+                                        :retained_image, :community)
   end
 end

@@ -4,4 +4,7 @@
   <% end %>
   <%= achievement.title %>
   <%= achievement.description %>
+  <% if achievement.community? %>
+    <span class="label label-info">community</span>
+  <% end %>
 </li>

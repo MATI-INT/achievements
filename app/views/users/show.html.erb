@@ -34,7 +34,7 @@
 
         <% @user.posts.each do |post| %>
           <% post.achievements.each do |ach| %>
-            <%= render(ach) if ach.votes.count > 5 %>
+            <%= render(ach) if ach.assigned_for?(post) %>
           <% end %>
         <% end %>
       </div>

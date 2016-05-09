@@ -18,23 +18,25 @@
 <% @post.achievements.each do |ach| %>
   <%= image_tag ach.image.thumb('100x100#').url %>
   <%= ach.title %>
-  <span class="label label-info">Votes: <%= ach.votes.count %></span>
 
-  <% if current_user.voted_for?(ach) %>
-    <span class="label label-danger">You have already voted!</span>
-  <% elsif ach.user == current_user %>
-    <span class="label label-info">You've assigned this!</span>
-  <% else %>
-    <%= form_tag votes_path do %>
-      <%= hidden_field_tag 'achievement_id', ach.id %>
-      <%= submit_tag "Vote!", class: 'btn btn-info btn-sm' %>
+  <% if ach.assigned_for?(@post) %>
+    <span class="label label-info">Votes: <%= ach.votes_for(@post) %></span>
+
+    <% if current_user.voted_for?(ach, @post) %>
+      <span class="label label-danger">You have already voted!</span>
+    <% elsif ach.user == current_user %>
+      <span class="label label-info">You've assigned this!</span>
+    <% else %>
+      <%= form_tag votes_path do %>
+        <%= hidden_field_tag 'achievement_id', ach.id %>
+        <%= hidden_field_tag 'post_id', @post.id %>
+        <%= submit_tag "Vote!", class: 'btn btn-info btn-sm' %>
+      <% end %>
     <% end %>
   <% end %>
-
   <br>
 
   <p class="text-muted">Assigned by <%= link_to ach.user.name, user_path(ach.user) %></p>
-
 <% end %>
 
 <% unless @post.user == current_user %>
@@ -43,7 +45,7 @@
     <fieldset class="form-group">
       <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
       <%= select_tag "achievement_id",
-                     options_from_collection_for_select(current_user.achievements - @post.achievements, 'id', 'title'),
+                     options_from_collection_for_select(@ach_to_assign, 'id', 'title'),
                      class: "form-control" %>
     </fieldset>
 

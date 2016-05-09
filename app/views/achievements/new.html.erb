@@ -19,5 +19,10 @@
     <%= f.text_area :description, class: "form-control" %>
   </fieldset>
 
+  <fieldset class="form-group">
+    <%= f.label :community, class: 'control-label' %>
+    <%= f.check_box :community, class: "form-control" %>
+  </fieldset>
+
   <%= f.submit 'Create', class: 'btn btn-primary' %>
 <% end %>

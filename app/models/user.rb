@@ -9,7 +9,8 @@ class User < ApplicationRecord
   has_many :votes
   has_many :comments
 
-  def voted_for?(ach)
-    votes.any? {|v| v.achievement == ach }
+  def voted_for?(ach, post)
+    post_achievement = PostAchievement.find_by(post: post, achievement: ach)
+    votes.any? {|v| v.post_achievement == post_achievement }
   end
 end

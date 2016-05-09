@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :post_achievements, only: [:create]
   resources :categories, only: [:new, :create, :index]
   resources :votes, only: [:create]
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index, :destroy]
   resources :comments, only: [:create]
 
   root to: 'categories#index'

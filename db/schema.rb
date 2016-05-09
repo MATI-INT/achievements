@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429173735) do
+ActiveRecord::Schema.define(version: 20160509191947) do
 
   create_table "achievements", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.string   "image_uid"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "user_id"
+    t.boolean  "community",   default: false
   end
 
   create_table "categories", force: :cascade do |t|
@@ -59,30 +60,31 @@ ActiveRecord::Schema.define(version: 20160429173735) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                  default: "",    null: false
     t.string   "name"
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.boolean  "admin",                  default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer  "achievement_id"
+    t.integer  "post_achievement_id"
     t.integer  "user_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["achievement_id", "user_id"], name: "index_votes_on_achievement_id_and_user_id", unique: true
-    t.index ["achievement_id"], name: "index_votes_on_achievement_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["post_achievement_id", "user_id"], name: "index_votes_on_post_achievement_id_and_user_id", unique: true
+    t.index ["post_achievement_id"], name: "index_votes_on_post_achievement_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
