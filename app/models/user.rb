@@ -4,10 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :achievements
-  has_many :posts
-  has_many :votes
-  has_many :comments
+  has_many :achievements, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :votes, dependent: :nullify
+  has_many :comments, dependent: :destroy
 
   def voted_for?(ach, post)
     post_achievement = PostAchievement.find_by(post: post, achievement: ach)

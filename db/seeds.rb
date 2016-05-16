@@ -6,9 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-20.times do
-  Category.create!({
-                   title: Faker::Book.title,
-                   description: Faker::Lorem.paragraph(4, true, 3)
-               })
+Post.where(user_id: 2).each do |p|
+  p.user_id = 4
+  p.save!
 end

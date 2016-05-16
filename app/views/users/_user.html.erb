@@ -1,7 +1,12 @@
-<li>
+<li id="user-<%= user.id %>">
   <%= gravatar_for user %>
   <%= user.name %>
   (<%= user.email %>)
+  <% if user.admin? %>
+    <span class="label label-info admin">admin</span>
+  <% end %>
+  <%= link_to 'Toggle rights', toggle_rights_user_path(user), class: 'btn btn-info',
+              remote: true %>
   <%= link_to 'Delete', user_path(user),
               method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure?'} %>
 </li>

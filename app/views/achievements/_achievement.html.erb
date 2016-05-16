@@ -7,4 +7,11 @@
   <% if achievement.community? %>
     <span class="label label-info">community</span>
   <% end %>
+  <% if current_user.admin? %>
+    <%= link_to achievement_path(achievement), method: :delete,
+                data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
+      <i class="icon-bin"></i>
+      Delete
+    <% end %>
+  <% end %>
 </li>

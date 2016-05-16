@@ -3,14 +3,14 @@
 <div class="post">
   <div class="card">
     <div class="card-block">
-      <p class="text-muted"><%= @post.timestamp %></p>
+      <p class="text-muted"><i class="icon-clock"></i> <%= @post.timestamp %></p>
 
       <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %>
         <em><%= link_to @post.user.name, user_path(@post.user) %></em></p>
     </div>
 
     <div class="card-block">
-      <%= @post.body %>
+      <%= sanitize @post.body, tags: %w(iframe a img) %>
     </div>
   </div>
 </div>
@@ -20,6 +20,8 @@
   <%= ach.title %>
 
   <% if ach.assigned_for?(@post) %>
+    Post has received this achievement...
+  <% else %>
     <span class="label label-info">Votes: <%= ach.votes_for(@post) %></span>
 
     <% if current_user.voted_for?(ach, @post) %>

@@ -1,6 +1,9 @@
 <h1>Achievements</h1>
 
-<%= link_to 'Create ach', new_achievement_url, class: 'btn btn-primary btn-lg' %>
+<%= link_to new_achievement_url, class: 'btn btn-primary btn-lg' do %>
+  <i class="icon-plus"></i>
+  Add achievement
+<% end %>
 
 <ul>
   <%= render @achievements %>

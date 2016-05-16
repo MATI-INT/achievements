@@ -1,0 +1,6 @@
+var user = $('#user-<%= @user.id %>');
+<% if @user.admin? %>
+user.find('.btn.btn-info').before('<span class="label label-info admin">admin</span>&nbsp;');
+<% else %>
+user.find('.admin').fadeOut();
+<% end %>

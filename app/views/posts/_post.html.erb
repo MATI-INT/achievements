@@ -7,9 +7,21 @@
       <% end %>
       <%= post.user.name %>
     </h6>
-    <p class="card-text"><%= truncate post.body, length: 200 %></p>
+    <p class="card-text"><%= truncate sanitize(post.body, tags: []), length: 200 %></p>
 
     <%= link_to 'Read more', post_path(post), class: 'btn btn-primary' %>
+
+    <% if current_user.admin? %>
+      <%= link_to edit_post_path(post), class: 'btn btn-info' do %>
+        Edit
+      <% end %>
+
+      <%= link_to post_path(post), method: :delete,
+                                 data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
+        <i class="icon-bin"></i>
+        Delete
+      <% end %>
+    <% end %>
 
     <div class="card-footer text-muted">
       <%= time_ago_in_words post.created_at %> ago

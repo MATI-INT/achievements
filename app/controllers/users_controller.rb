@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
-  before_action :require_admin!, only: [:index, :destroy]
+  before_action :require_admin!, except: [:show]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -16,5 +16,13 @@ class UsersController < ApplicationController
       flash[:success] = "User deleted..."
     end
     redirect_to users_path
+  end
+
+  def toggle_rights
+    respond_to do |format|
+      @user = User.find_by(id: params[:id])
+      @user.toggle!(:admin) if @user
+      format.js
+    end
   end
 end

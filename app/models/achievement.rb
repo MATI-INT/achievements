@@ -1,7 +1,7 @@
 class Achievement < ApplicationRecord
   dragonfly_accessor :image
 
-  THRESHOLD = 0
+  THRESHOLD = 1
   validates :title, presence: true
   validates :description, presence: true
 
@@ -14,7 +14,7 @@ class Achievement < ApplicationRecord
 
   belongs_to :user, optional: true # TODO: remove it
 
-  has_many :post_achievements
+  has_many :post_achievements, dependent: :destroy
   has_many :posts, through: :post_achievements
 
   def votes_for(post)
@@ -22,6 +22,6 @@ class Achievement < ApplicationRecord
   end
 
   def assigned_for?(post)
-    votes_for(post) > THRESHOLD
+    votes_for(post) >= THRESHOLD
   end
 end

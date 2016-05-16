@@ -1,4 +1,27 @@
 class PostsController < ApplicationController
+  before_action :require_admin!, only: [:destroy, :edit, :update]
+
+  def destroy
+    @post = Post.find_by(id: params[:id])
+    @post.destroy
+    flash[:success] = "Post destroyed!"
+    redirect_to posts_path
+  end
+
+  def edit
+    @post = Post.find_by(id: params[:id])
+  end
+
+  def update
+    @post = Post.find_by(id: params[:id])
+    if @post.update_attributes(post_params)
+      flash[:success] = 'Post edited!'
+      redirect_to posts_path
+    else
+      render 'new'
+    end
+  end
+
   def new
     @post = Post.new
   end
@@ -38,6 +61,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :category)
+    params.require(:post).permit(:title, :body, :category_id)
   end
 end

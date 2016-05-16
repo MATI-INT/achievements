@@ -1,4 +1,6 @@
 class AchievementsController < ApplicationController
+  before_action :require_admin!, only: [:destroy]
+
   def index
     @achievements = Achievement.community.order('created_at DESC')
   end
@@ -15,6 +17,16 @@ class AchievementsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def destroy
+    @achievement = Achievement.find_by(id: params[:id])
+    if @achievement.destroy
+      flash[:success] = "Achievement destroyed!"
+    else
+      flash[:warning] = "Cannot destroy achievement..."
+    end
+    redirect_back fallback_location: achievements_path
   end
 
   private
