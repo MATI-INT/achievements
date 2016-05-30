@@ -1,10 +1,18 @@
 <h1>Categories</h1>
 
+<div class="row">
+  <div class="col-md-8">
+    <% @categories.in_groups_of(3) do |category_group| %>
+      <div class="card-group">
+        <% category_group.each do |category| %>
+          <%= render category if category %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
-  <% @categories.in_groups_of(3) do |category_group| %>
-  <div class="card-group">
-      <% category_group.each do |category| %>
-        <%= render category if category %>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="col-md-4">
+    <%= render @posts %>
+  </div>
+</div>
+

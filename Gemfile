@@ -32,7 +32,6 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # jQuery and stuff
 gem 'jquery-rails'
-gem 'jquery-turbolinks'
 
 # Turbolinks
 gem 'turbolinks', '~> 5.x'

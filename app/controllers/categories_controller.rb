@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   def index
     @categories = Category.order('created_at DESC')
+    @posts = Post.order('created_at DESC').page(params[:page])
   end
 
   def new
