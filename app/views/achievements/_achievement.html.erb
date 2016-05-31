@@ -2,7 +2,8 @@
   <div class="card-block row">
     <div class="col-md-2">
       <% if achievement.image.present? %>
-        <%= image_tag achievement.image.thumb('100x100#').url %>
+        <%= image_tag achievement.image.thumb('100x100#').url,
+                      alt: achievement.title %>
       <% end %>
     </div>
     <div class="col-md-9">
