@@ -9,6 +9,7 @@ gem 'devise', '~> 4.1'
 
 # Files
 gem 'dragonfly'
+gem 'dragonfly-s3_data_store'
 
 # Pagination
 gem 'kaminari', github: 'amatsuda/kaminari', branch: 'master'
