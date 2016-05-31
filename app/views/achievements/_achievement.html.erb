@@ -1,17 +1,27 @@
-<li>
-  <% if achievement.image.present? %>
-    <%= image_tag achievement.image.thumb('200x200#').url %>
-  <% end %>
-  <%= achievement.title %>
-  <%= achievement.description %>
-  <% if achievement.community? %>
-    <span class="label label-info">community</span>
-  <% end %>
-  <% if current_user.admin? %>
-    <%= link_to achievement_path(achievement), method: :delete,
-                data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
-      <i class="icon-bin"></i>
-      Delete
-    <% end %>
-  <% end %>
-</li>
+<div class="card">
+  <div class="card-block row">
+    <div class="col-md-2">
+      <% if achievement.image.present? %>
+        <%= image_tag achievement.image.thumb('100x100#').url %>
+      <% end %>
+    </div>
+    <div class="col-md-9">
+      <h4 class="card-title"><%= achievement.title %></h4>
+      <p class="card-text"><%= achievement.description %></p>
+
+      <% if current_user.admin? %>
+        <%= link_to achievement_path(achievement), method: :delete,
+                    data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
+          <i class="icon-bin"></i>
+          Delete
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-1">
+      <% if achievement.community? %>
+        <i class="icon-users text-primary"></i>
+      <% end %>
+    </div>
+
+  </div>
+</div>

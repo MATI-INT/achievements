@@ -5,7 +5,7 @@ gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 gem 'puma'
 
 # Authentication
-gem 'devise', '4.0.0.rc2'
+gem 'devise', '~> 4.1'
 
 # Files
 gem 'dragonfly'
@@ -34,7 +34,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 
 # Turbolinks
-gem 'turbolinks', '~> 5.x'
+gem 'turbolinks', '>= 5.0.0.beta2'
 
 # Styles
 gem 'bootstrap', '~> 4.0.0.alpha3'

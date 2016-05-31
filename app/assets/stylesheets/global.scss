@@ -1,2 +1,15 @@
 .alert-notice {@extend .alert-success;}
 .alert-alert {@extend .alert-warning;}
+
+#comments-list {
+  margin-top: 1rem;
+}
+
+.text-bigger {
+  font-size: 2rem;
+}
+
+.turbolinks-progress-bar {
+  height: 4px;
+  background-color: $brand-primary;
+}
