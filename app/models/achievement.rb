@@ -1,7 +1,7 @@
 class Achievement < ApplicationRecord
   dragonfly_accessor :image
 
-  THRESHOLD = 1
+  THRESHOLD = 2
   validates :title, presence: true
   validates :description, presence: true
 
