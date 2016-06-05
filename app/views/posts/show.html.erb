@@ -37,18 +37,19 @@
           <i class="icon-checkmark text-success text-bigger"></i>
         <% else %>
           <span class="label label-info">Votes: <%= ach.votes_for(@post) %></span>
-
-          <% if current_user.voted_for?(ach, @post) %>
-            <span class="label label-danger">You have already voted!</span>
-          <% elsif ach.user == current_user %>
-            <span class="label label-info">You've assigned this!</span>
-          <% else %>
-            <%= form_tag votes_path do %>
-              <%= hidden_field_tag 'achievement_id', ach.id %>
-              <%= hidden_field_tag 'post_id', @post.id %>
-              <%= button_to nil, class: 'btn btn-info btn-sm' do %>
-                <i class="icon-arrow-up"></i>
-                Vote!
+          <% if current_user %>
+            <% if current_user.voted_for?(ach, @post) %>
+              <span class="label label-danger">You have already voted!</span>
+            <% elsif ach.user == current_user %>
+              <span class="label label-info">You've assigned this!</span>
+            <% else %>
+              <%= form_tag votes_path do %>
+                <%= hidden_field_tag 'achievement_id', ach.id %>
+                <%= hidden_field_tag 'post_id', @post.id %>
+                <%= button_to nil, class: 'btn btn-info btn-sm' do %>
+                  <i class="icon-arrow-up"></i>
+                  Vote!
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
@@ -62,7 +63,7 @@
   </div>
 <% end %>
 
-<% unless @post.user == current_user %>
+<% unless !current_user || @post.user == current_user %>
   <%= form_tag post_achievements_path, method: :post do %>
     <%= hidden_field_tag 'post_id', @post.id %>
     <fieldset class="form-group">
@@ -80,15 +81,17 @@
 
 <h3><i class="icon-bubbles"></i> Comments</h3>
 
-<%= form_for @comment, remote: true do |f| %>
-  <%= hidden_field_tag 'post_id', @post.id %>
+<% if current_user %>
+  <%= form_for @comment, remote: true do |f| %>
+    <%= hidden_field_tag 'post_id', @post.id %>
 
-  <fieldset class="form-group">
-    <%= f.label :body, 'Your comment' %>
-    <%= f.text_area :body, class: 'form-control' %>
-  </fieldset>
+    <fieldset class="form-group">
+      <%= f.label :body, 'Your comment' %>
+      <%= f.text_area :body, class: 'form-control' %>
+    </fieldset>
 
-  <%= f.submit 'Comment!', class: 'btn btn-primary' %>
+    <%= f.submit 'Comment!', class: 'btn btn-primary' %>
+  <% end %>
 <% end %>
 
 <div id="comments-list">

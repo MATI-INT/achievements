@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index]
+
   def index
     @categories = Category.order('created_at DESC')
     @posts = Post.order('created_at DESC').limit(5)

@@ -10,7 +10,7 @@
       <h4 class="card-title"><%= achievement.title %></h4>
       <p class="card-text"><%= achievement.description %></p>
 
-      <% if current_user.admin? %>
+      <% if current_user && current_user.admin? %>
         <%= link_to achievement_path(achievement), method: :delete,
                     data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' do %>
           <i class="icon-bin"></i>

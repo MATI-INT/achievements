@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:index, :show]
   before_action :require_admin!, only: [:destroy, :edit, :update]
 
   def destroy
@@ -55,7 +56,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.includes(:achievements, :comments).find_by(id: params[:id])
     @comment = Comment.new
-    @ach_to_assign = (Achievement.where(community: true) + current_user.achievements - @post.achievements).uniq
+    @ach_to_assign = (Achievement.where(community: true) + (current_user.nil? ? [] : current_user.achievements) - @post.achievements).uniq
   end
 
   private
