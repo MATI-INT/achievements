@@ -12,7 +12,7 @@ gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 
 # Pagination
-gem 'kaminari', github: 'amatsuda/kaminari', branch: 'master'
+gem 'kaminari', '>= 0.17.0'
 
 group :development do
   gem 'sqlite3'
