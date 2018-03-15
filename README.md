@@ -1,24 +1,18 @@
 ## README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Запуск сервера локально:
 
-Things you may want to cover:
+1. Закомментировать `config/puma.rb`
+2. `rails s`
+3. Если пушим на хероку - раскомментировать
+4. `http://localhost:3000`
 
-* Ruby version
+Публикация на GH:
 
-* System dependencies
+1. `git add .`
+2. `git commit -am "Description"`
+3. `git push`
 
-* Configuration
+Загрузка с GH:
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. `git pull`

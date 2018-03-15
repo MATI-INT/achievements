@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core
-gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+gem 'rails', '5.1.5'
 gem 'puma'
 
 # Authentication
@@ -12,7 +12,7 @@ gem 'dragonfly'
 gem 'dragonfly-s3_data_store'
 
 # Pagination
-gem 'kaminari', '>= 0.17.0'
+gem 'kaminari', '~> 1.1'
 
 group :development do
   gem 'sqlite3'
@@ -21,24 +21,23 @@ group :development do
 end
 
 group :production do
-  gem 'rails_12factor'
   # Postgres
-  gem 'pg'
+  gem 'pg', '< 1'
 end
 
 # Assets
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.2.2'
 
 # jQuery and stuff
 gem 'jquery-rails'
 
 # Turbolinks
-gem 'turbolinks', '>= 5.0.0.beta2'
+gem 'turbolinks', '>= 5.1.0'
 
 # Styles
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootstrap', '~> 4.0.0'
 
 group :development, :test do
   gem 'faker'
