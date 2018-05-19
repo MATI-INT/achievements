@@ -14,4 +14,7 @@
 //= require rails-ujs
 //= require bootstrap/tab
 //= require bootstrap/util
+//= require Chart.bundle
+//= require chartkick
+//= require track-visits
 //= require turbolinks

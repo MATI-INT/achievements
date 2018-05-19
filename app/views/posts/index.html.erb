@@ -2,6 +2,10 @@
 
 <%= link_to 'New Post', new_post_path, class: 'btn btn-primary btn-lg' %>
 
+<% if @category.present? %>
+  <div class="d-none track-visits" data-category="<%= @category.id %>"></div>
+<% end %>
+
 <%= render @posts %>
 
 <%= paginate @posts %>

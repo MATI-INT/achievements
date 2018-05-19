@@ -1,11 +1,13 @@
 source 'https://rubygems.org'
 
 # Core
-gem 'rails', '5.1.5'
+gem 'rails', '5.2.0'
 gem 'puma'
+gem 'pg', '~> 1'
 
 # Authentication
 gem 'devise', '~> 4.1'
+gem 'dotenv-rails'
 
 # Files
 gem 'dragonfly'
@@ -15,14 +17,8 @@ gem 'dragonfly-s3_data_store'
 gem 'kaminari', '~> 1.1'
 
 group :development do
-  gem 'sqlite3'
   gem 'better_errors'
   gem 'binding_of_caller'
-end
-
-group :production do
-  # Postgres
-  gem 'pg', '< 1'
 end
 
 # Assets
@@ -32,6 +28,10 @@ gem 'coffee-rails', '~> 4.2.2'
 
 # jQuery and stuff
 gem 'jquery-rails'
+
+# For charts
+gem 'chartkick'
+gem 'groupdate'
 
 # Turbolinks
 gem 'turbolinks', '>= 5.1.0'

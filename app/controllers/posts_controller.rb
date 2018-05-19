@@ -46,11 +46,12 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = if params[:category]
-      Post.where(category: params[:category])
-    else
-      Post.all
-    end.order('created_at DESC').page(params[:page])
+    @category = Category.find_by id: params[:category]
+    @posts = if @category.present?
+               @category.posts
+             else
+               Post.all
+             end.order('created_at DESC').page(params[:page])
   end
 
   def show

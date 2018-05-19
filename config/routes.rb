@@ -13,5 +13,11 @@ Rails.application.routes.draw do
   end
   resources :comments, only: [:create]
 
-  root to: 'categories#index'
+  namespace :api do
+    resources :visits, only: %i(create) # => [:create]
+  end
+
+  resources :statistics, only: %i(index show)
+
+  root 'categories#index'
 end

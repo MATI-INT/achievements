@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :votes, dependent: :nullify
   has_many :comments, dependent: :destroy
+  has_many :visits, dependent: :destroy
 
   def voted_for?(ach, post)
     post_achievement = PostAchievement.find_by(post: post, achievement: ach)

@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   has_many :post_achievements
   has_many :achievements, through: :post_achievements
   has_many :comments
+  has_many :visits, dependent: :destroy
 
   #scope :received_achievements, achievements
 

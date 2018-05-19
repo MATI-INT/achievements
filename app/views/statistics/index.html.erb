@@ -1,0 +1,11 @@
+
+<ul>
+  <% @categories.each do |category| %>
+    <li>
+      <%= link_to "Show stats for category #{category.title}",
+                  statistic_path(category.id) %>
+    </li>
+  <% end %>
+</ul>
+
+
