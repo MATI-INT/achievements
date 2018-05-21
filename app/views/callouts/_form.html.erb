@@ -1,0 +1,14 @@
+<%= form_for callout do |f| %>
+  <%= render 'shared/errors', object: callout %>
+
+  <%= f.text_field :url, placeholder: 'URL' %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.collection_select :category_ids, Category.all, :id, :title %>
+
+  <%= f.file_field :image %>
+
+  <%= f.submit %>
+<% end %>

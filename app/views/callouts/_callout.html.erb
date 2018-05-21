@@ -1,0 +1,15 @@
+<li>
+  <%= link_to 'Edit', edit_callout_path(callout) %><br>
+  URL: <%= callout.url %><br>
+  Description: <%= callout.description %><br>
+
+  <ul>
+    Categories: <% callout.categories.each do  |cat| %>
+      <li>
+        <%= cat.title %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= image_tag callout.image.url %>
+</li>

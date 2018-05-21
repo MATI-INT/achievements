@@ -28,7 +28,13 @@ end
   post = Post.all.shuffle.first
   Visit.create created_at: Faker::Date.between(60.days.ago, Date.today),
                user: User.all.shuffle.first,
-               category: post.category,
                post: post
+end
+
+200.times do
+  category = Category.all.shuffle.first
+  Visit.create created_at: Faker::Date.between(60.days.ago, Date.today),
+               user: User.all.shuffle.first,
+               category: category
 end
 

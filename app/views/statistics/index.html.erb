@@ -1,4 +1,4 @@
-
+<h1>Category stats</h1>
 <ul>
   <% @categories.each do |category| %>
     <li>
@@ -8,4 +8,7 @@
   <% end %>
 </ul>
 
-
+<h2>Visits by category</h2>
+<%= column_chart @categories.map {|category|
+  [category.title, category.visits.count]
+} %>

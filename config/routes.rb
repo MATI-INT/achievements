@@ -17,7 +17,13 @@ Rails.application.routes.draw do
     resources :visits, only: %i(create) # => [:create]
   end
 
-  resources :statistics, only: %i(index show)
+  resources :statistics, only: %i(index show) do
+    member do
+      get 'post'
+    end
+  end
+
+  resources :callouts
 
   root 'categories#index'
 end

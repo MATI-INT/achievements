@@ -46,16 +46,19 @@ class PostsController < ApplicationController
   end
 
   def index
-    @category = Category.find_by id: params[:category]
-    @posts = if @category.present?
-               @category.posts
-             else
-               Post.all
-             end.order('created_at DESC').page(params[:page])
+    @category = Category.includes(:posts, :callouts).find_by id: params[:category]
+    if @category.present?
+      @posts = @category.posts
+      @callouts = @category.callouts
+    else
+      @posts = Post.all
+    end
+    @posts = @posts.order('created_at DESC').page(params[:page])
   end
 
   def show
     @post = Post.includes(:achievements, :comments).find_by(id: params[:id])
+    @callouts = @post.category.callouts.order(Arel.sql('random()')).limit(3)
     @comment = Comment.new
     @ach_to_assign = (Achievement.where(community: true) + (current_user.nil? ? [] : current_user.achievements) - @post.achievements).uniq
   end

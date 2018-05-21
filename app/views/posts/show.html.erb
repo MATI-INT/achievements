@@ -1,102 +1,114 @@
 <h1><%= @post.title %></h1>
 
-<div class="d-none track-visits" data-post="<%= @post.id %>"
-     data-category="<%= @post.category.id %>"></div>
+<div class="d-none track-visits" data-post="<%= @post.id %>"></div>
 
-<div class="post">
-  <div class="card">
-    <div class="card-block">
-      <p class="text-muted"><i class="icon-clock"></i> <%= @post.timestamp %></p>
+<div class="row">
+  <div class="col-md-9">
+    <div class="post">
+      <div class="card">
+        <div class="card-block">
+          <p class="text-muted"><i class="icon-clock"></i> <%= @post.timestamp %></p>
 
-      <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %>
-        <em><%= link_to @post.user.name, user_path(@post.user) %></em></p>
+          <p><%= gravatar_for @post.user, size: 60, class: 'avatar' %>
+            <em><%= link_to @post.user.name, user_path(@post.user) %></em></p>
+        </div>
+
+        <div class="card-block">
+          <%= sanitize @post.body, tags: %w(iframe a img) %>
+        </div>
+      </div>
     </div>
 
-    <div class="card-block">
-      <%= sanitize @post.body, tags: %w(iframe a img) %>
-    </div>
-  </div>
-</div>
+    <h3><i class="icon-trophy"></i> Achievements</h3>
 
-<h3><i class="icon-trophy"></i> Achievements</h3>
+    <% @post.achievements.each do |ach| %>
+      <div class="card">
+        <div class="card-block row">
+          <div class="col-md-2">
+            <%= image_tag ach.image.thumb('100x100#').url, alt: ach.title %>
+          </div>
 
-<% @post.achievements.each do |ach| %>
-  <div class="card">
-    <div class="card-block row">
-      <div class="col-md-2">
-        <%= image_tag ach.image.thumb('100x100#').url, alt: ach.title %>
-      </div>
+          <div class="col-md-7">
+            <h4 class="card-title"><%= ach.title %></h4>
 
-      <div class="col-md-7">
-        <h4 class="card-title"><%= ach.title %></h4>
+            <p class="card-text">
+              <%= ach.description %>
+            </p>
+          </div>
 
-        <p class="card-text">
-          <%= ach.description %>
-        </p>
-      </div>
-
-      <div class="col-md-3">
-        <% if ach.assigned_for?(@post) %>
-          <i class="icon-checkmark text-success text-bigger"></i>
-        <% else %>
-          <span class="label label-info">Votes: <%= ach.votes_for(@post) %></span>
-          <% if current_user %>
-            <% if current_user.voted_for?(ach, @post) %>
-              <span class="label label-danger">You have already voted!</span>
-            <% elsif ach.user == current_user %>
-              <span class="label label-info">You've assigned this!</span>
+          <div class="col-md-3">
+            <% if ach.assigned_for?(@post) %>
+              <i class="icon-checkmark text-success text-bigger"></i>
             <% else %>
-              <%= form_tag votes_path do %>
-                <%= hidden_field_tag 'achievement_id', ach.id %>
-                <%= hidden_field_tag 'post_id', @post.id %>
-                <%= button_to nil, class: 'btn btn-info btn-sm' do %>
-                  <i class="icon-arrow-up"></i>
-                  Vote!
+              <span class="label label-info">Votes: <%= ach.votes_for(@post) %></span>
+              <% if current_user %>
+                <% if current_user.voted_for?(ach, @post) %>
+                  <span class="label label-danger">You have already voted!</span>
+                <% elsif ach.user == current_user %>
+                  <span class="label label-info">You've assigned this!</span>
+                <% else %>
+                  <%= form_tag votes_path do %>
+                    <%= hidden_field_tag 'achievement_id', ach.id %>
+                    <%= hidden_field_tag 'post_id', @post.id %>
+                    <%= button_to nil, class: 'btn btn-info btn-sm' do %>
+                      <i class="icon-arrow-up"></i>
+                      Vote!
+                    <% end %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>
-          <% end %>
-        <% end %>
 
-        <p class="card-text text-muted">
-          Assigned by <%= link_to ach.user.name, user_path(ach.user) %>
-        </p>
+            <p class="card-text text-muted">
+              Assigned by <%= link_to ach.user.name, user_path(ach.user) %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <% unless !current_user || @post.user == current_user %>
+      <%= form_tag post_achievements_path, method: :post do %>
+        <%= hidden_field_tag 'post_id', @post.id %>
+        <fieldset class="form-group">
+          <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
+          <%= select_tag "achievement_id",
+                         options_from_collection_for_select(@ach_to_assign, 'id', 'title'),
+                         class: "form-control" %>
+        </fieldset>
+
+        <%= submit_tag 'Assign!', class: 'btn btn-primary btn-xs' %>
+      <% end %>
+    <% end %>
+
+    <hr>
+
+    <h3><i class="icon-bubbles"></i> Comments</h3>
+
+    <% if current_user %>
+      <%= form_for @comment, remote: true do |f| %>
+        <%= hidden_field_tag 'post_id', @post.id %>
+
+        <fieldset class="form-group">
+          <%= f.label :body, 'Your comment' %>
+          <%= f.text_area :body, class: 'form-control' %>
+        </fieldset>
+
+        <%= f.submit 'Comment!', class: 'btn btn-primary' %>
+      <% end %>
+    <% end %>
+
+    <div id="comments-list">
+      <%= render @post.comments.order('created_at DESC') %>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-block">
+        <h2>Related products</h2>
+        <%= render partial: 'callout', collection: @callouts, as: :callout %>
       </div>
     </div>
   </div>
-<% end %>
-
-<% unless !current_user || @post.user == current_user %>
-  <%= form_tag post_achievements_path, method: :post do %>
-    <%= hidden_field_tag 'post_id', @post.id %>
-    <fieldset class="form-group">
-      <%= label_tag "achievements", 'Select achievement', class: 'control-label'%>
-      <%= select_tag "achievement_id",
-                     options_from_collection_for_select(@ach_to_assign, 'id', 'title'),
-                     class: "form-control" %>
-    </fieldset>
-
-    <%= submit_tag 'Assign!', class: 'btn btn-primary btn-xs' %>
-  <% end %>
-<% end %>
-
-<hr>
-
-<h3><i class="icon-bubbles"></i> Comments</h3>
-
-<% if current_user %>
-  <%= form_for @comment, remote: true do |f| %>
-    <%= hidden_field_tag 'post_id', @post.id %>
-
-    <fieldset class="form-group">
-      <%= f.label :body, 'Your comment' %>
-      <%= f.text_area :body, class: 'form-control' %>
-    </fieldset>
-
-    <%= f.submit 'Comment!', class: 'btn btn-primary' %>
-  <% end %>
-<% end %>
-
-<div id="comments-list">
-  <%= render @post.comments.order('created_at DESC') %>
 </div>

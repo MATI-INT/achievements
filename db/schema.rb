@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_123222) do
+ActiveRecord::Schema.define(version: 2018_05_21_140036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,11 +25,28 @@ ActiveRecord::Schema.define(version: 2018_05_19_123222) do
     t.boolean "community", default: false
   end
 
+  create_table "callouts", force: :cascade do |t|
+    t.text "description"
+    t.string "url"
+    t.string "image_uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "category_callouts", force: :cascade do |t|
+    t.bigint "category_id"
+    t.bigint "callout_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["callout_id"], name: "index_category_callouts_on_callout_id"
+    t.index ["category_id"], name: "index_category_callouts_on_category_id"
   end
 
   create_table "comments", id: :serial, force: :cascade do |t|
@@ -101,6 +118,8 @@ ActiveRecord::Schema.define(version: 2018_05_19_123222) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "category_callouts", "callouts"
+  add_foreign_key "category_callouts", "categories"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "posts", "categories"

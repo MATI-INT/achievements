@@ -6,6 +6,15 @@
   <div class="d-none track-visits" data-category="<%= @category.id %>"></div>
 <% end %>
 
-<%= render @posts %>
+<div class="row">
+  <div class="col-md-9">
+    <%= render @posts %>
+  </div>
+
+  <div class="col-md-3">
+    <%= render partial: 'callout', collection: @callouts, as: :callout %>
+  </div>
+</div>
+
 
 <%= paginate @posts %>
