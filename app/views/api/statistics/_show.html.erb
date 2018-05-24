@@ -1,0 +1,5 @@
+<h3>Stats for <%= @category.title %></h3>
+<%= line_chart [
+                   {name: 'Visits', data: @grouped_visits},
+                   {name: 'Created posts', data: @posts_count}
+], download: true %>

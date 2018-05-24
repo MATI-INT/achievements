@@ -1,12 +1,21 @@
 <h1>Category stats</h1>
-<ul>
-  <% @categories.each do |category| %>
-    <li>
-      <%= link_to "Show stats for category #{category.title}",
-                  statistic_path(category.id) %>
-    </li>
-  <% end %>
-</ul>
+<div class="row">
+  <div class="col-md-3">
+    <ul>
+      <% @categories.each do |category| %>
+        <li>
+          <%= link_to "Show stats for category #{category.title}",
+                      api_statistic_path(category.id), class: 'async-load',
+                      data: { target: '#category-graphs' } %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-9" id="category-graphs">
+  </div>
+</div>
+
 
 <h2>Visits by category</h2>
 <%= column_chart @categories.map {|category|

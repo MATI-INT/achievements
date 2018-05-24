@@ -17,4 +17,5 @@
 //= require Chart.bundle
 //= require chartkick
 //= require track-visits
+//= require async-load
 //= require turbolinks

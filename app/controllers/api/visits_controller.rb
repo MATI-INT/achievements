@@ -1,5 +1,7 @@
 module Api
   class VisitsController < ApplicationController
+    skip_before_action :authenticate_user!
+
     def create
       #binding.pry # stop code execution
       category = Category.find_by id: params[:category]

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :visits, only: %i(create) # => [:create]
+    resources :statistics, only: %i(show)
   end
 
   resources :statistics, only: %i(index show) do

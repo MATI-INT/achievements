@@ -2,7 +2,7 @@ class StatisticsController < ApplicationController
   skip_before_action :authenticate_user!
 
   def index
-    @categories = Category.all
+    @categories = Category.all # TODO: sort by created posts
   end
 
   def show
