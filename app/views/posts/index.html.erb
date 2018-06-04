@@ -1,6 +1,8 @@
-<%= header('Posts') %>
+<%= header('Posts')%>
+
 
 <%= link_to 'New Post', new_post_path, class: 'btn btn-primary btn-lg' %>
+
 
 <% if @category.present? %>
   <div class="d-none track-visits" data-category="<%= @category.id %>"></div>
@@ -12,7 +14,12 @@
   </div>
 
   <div class="col-md-3">
-    <%= render partial: 'callout', collection: @callouts, as: :callout %>
+    <div class="card">
+      <div class="card-block">
+        <h2>Related products</h2>
+        <%= render partial: 'callout', collection: @callouts, as: :callout %>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -3,8 +3,16 @@ source 'https://rubygems.org'
 ruby '2.4.3'
 
 # Core
-gem 'rails', '5.2.0'
-gem 'puma'
+gem "activerecord"
+gem "activemodel"
+gem "actionpack"
+gem "actionview"
+gem "actionmailer"
+gem "activejob"
+gem "activesupport"
+gem "railties"
+gem "sprockets-rails"
+gem 'puma', platform: :ruby
 gem 'pg', '~> 1'
 
 # Authentication
